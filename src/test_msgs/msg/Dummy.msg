@@ -20,7 +20,7 @@ float32 thisafloat32
 
 float64 thisisfloat64
 
-#string thisisastring
+string thisisastring
 
 
 #bool[] thisisaboolarray
@@ -41,7 +41,7 @@ int8[] thisisaint8array
 
 #uint64[] thisisauint64array
 
-#float32[] thisafloat32array
+float32[] thisafloat32array
 
 #float64[] thisisfloat64array
 
