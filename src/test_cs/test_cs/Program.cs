@@ -22,7 +22,7 @@ namespace test_cs
 				Console.WriteLine("String size,capacity: " + e.Message.thisisastring.Size + ", " + e.Message.thisisastring.Capacity);
 				Console.WriteLine("String: " + e.Message.thisisastring.Data);
 				Console.WriteLine("Float32 Array size,capacity,pointer: " + e.Message.thisafloat32array.ArraySize+ ", " + e.Message.thisafloat32array.ArrayCapacity + ", " + e.Message.thisafloat32array.Data);
-				Console.WriteLine("Int8 Array size,capacity,pointer: " + e.Message.thisisaint8array.ArraySize+ ", " + e.Message.thisisaint8array.ArrayCapacity + ", " + e.Message.thisisaint8array.Array);
+				//Console.WriteLine("Int8 Array size,capacity,pointer: " + e.Message.thisisaint8array.ArraySize+ ", " + e.Message.thisisaint8array.ArrayCapacity + ", " + e.Message.thisisaint8array.Array);
 				// + " " + e.Message.thisafloat32array.Array[0]);
 			};
 			Console.WriteLine ("Creating executor");
@@ -39,12 +39,12 @@ namespace test_cs
 			test_msg.thisisastring = new rosidl_generator_c__String ("test_test_test");
 			test_msg.thisafloat32array = new rosidl_generator_c__primitive_array_float32 (new float[]{ 10.0f, 1.1f });
 
-			test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 0, 10, 120, 244 });
-			Console.WriteLine("Float32 Array size,capacity,pointer: " + test_msg.thisafloat32array.ArraySize+ ", " + test_msg.thisafloat32array.ArrayCapacity + ", " + test_msg.thisafloat32array.Data);
+			//test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 0, 10, 120, 244 });
+			/*Console.WriteLine("Float32 Array size,capacity,pointer: " + test_msg.thisafloat32array.ArraySize+ ", " + test_msg.thisafloat32array.ArrayCapacity + ", " + test_msg.thisafloat32array.Data);
 			Console.Write("Float32 Array content: ");
 			foreach (var item in test_msg.thisafloat32array.Array) {
 				Console.Write (item +"; ");
-			}
+			}*/
 			Console.WriteLine ();
 			//Console.WriteLine (test_msg.thisisastring.Data );
 

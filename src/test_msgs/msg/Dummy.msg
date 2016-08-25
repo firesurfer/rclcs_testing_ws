@@ -25,7 +25,7 @@ string thisisastring
 
 #bool[] thisisaboolarray
 
-int8[] thisisaint8array
+#int8[] thisisaint8array
 
 #uint8[] thisiauint8array
 
