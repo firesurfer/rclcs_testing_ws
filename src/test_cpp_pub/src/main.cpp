@@ -15,10 +15,7 @@ void spin()
         loop_rate.sleep();
     }
 }
-void chatterCallback(const test_msgs::msg::Dummy::SharedPtr msg)
-{
- 	std::cout << (int)msg->thisisaint8 << ", " << (int)msg->thisiauint8 << ", " << msg->thisisastring << (int)msg->thisisaint8array[0]<< std::endl;
-}
+
 
 int main(int argc, char *argv[])
 {
@@ -27,14 +24,18 @@ int main(int argc, char *argv[])
     
     node = rclcpp::node::Node::make_shared("Cube_Hardware_Simulation_");
     std::thread spinner(&spin);
-    auto sub = node->create_subscription<test_msgs::msg::Dummy>("TestTopic", chatterCallback, rmw_qos_profile_default);
-
+    auto pub = node->create_publisher<test_msgs::msg::Dummy>("TestTopic",rmw_qos_profile_default);
+    test_msgs::msg::Dummy::SharedPtr msg = std::make_shared<test_msgs::msg::Dummy>();
+    std::vector<int8_t> test;
+    test.push_back(100);
+    test.push_back(110);
+    msg->thisisaint8array = test;
+    msg->thisisastring = "test";
+   
     rclcpp::WallRate loop_rate(30);
     std::string input = "";
     while(input != "exit" && rclcpp::ok())
-    {   std::getline (std::cin,input);
-        if(input == "exit")
-            exit(0);
+    {    pub->publish(msg);
         loop_rate.sleep();
     }
     spinner.join();
