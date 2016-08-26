@@ -22,10 +22,11 @@ float64 thisisfloat64
 
 string thisisastring
 
+string thisisanotherstring
 
 #bool[] thisisaboolarray
 
-#int8[] thisisaint8array
+int8[] thisisaint8array
 
 #uint8[] thisiauint8array
 
@@ -41,11 +42,11 @@ string thisisastring
 
 #uint64[] thisisauint64array
 
-float32[] thisafloat32array
+#float32[] thisafloat32array
 
 #float64[] thisisfloat64array
 
-#string[] thisisastringarrays
+#string[] thisisastringarray
 
 #builtin_interfaces/Time thisisatime
 

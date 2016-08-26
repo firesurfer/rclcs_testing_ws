@@ -2,6 +2,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include <memory>
 #include "test_msgs/msg/dummy.hpp"
+#include "test_msgs/msg/dummy.h"
 rclcpp::node::Node::SharedPtr node;
 void spin()
 {
@@ -21,7 +22,7 @@ void chatterCallback(const test_msgs::msg::Dummy::SharedPtr msg)
 
 int main(int argc, char *argv[])
 {
-   
+    std::cout << "Dummy struct size is: " << sizeof(test_msgs__msg__Dummy) << " Size of bool: " << sizeof(bool) << " Size of float: " << sizeof(float) << " Size of double: " << sizeof(double) << " String size: " << sizeof(rosidl_generator_c__String) << " Array size: " << sizeof(rosidl_generator_c__int8__Array)<< std::endl;
     rclcpp::init(argc, argv);
     
     node = rclcpp::node::Node::make_shared("Cube_Hardware_Simulation_");
