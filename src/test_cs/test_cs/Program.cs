@@ -11,10 +11,10 @@ namespace test_cs
 			Console.WriteLine ("Creating node");
 			Node test_node = new Node ("test_node");
 			Console.WriteLine ("Creating test publisher");
-			Publisher<test_msgs.Dummy> test_pub = new Publisher<test_msgs.Dummy> (test_node, "TestTopic");
+			Publisher<test_msgs.msg.Dummy> test_pub = new Publisher<test_msgs.msg.Dummy> (test_node, "TestTopic");
 			Console.WriteLine ("Creating test subscription");
-			Subscription<test_msgs.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.Dummy> ("TestTopic");
-			test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.Dummy> e) => {
+			Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic");
+			test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
 				Console.WriteLine("Recieved message on test topic: " + e.Message.thisiauint8);
 				foreach (var item in e.Message.GetType().GetFields()) {
 					Console.WriteLine(item.Name + " " + item.GetValue(e.Message));
@@ -32,7 +32,7 @@ namespace test_cs
 			Console.WriteLine ("Spinning");
 			executor.Spin (new TimeSpan (0, 0, 0, 0, 10));
 			Console.WriteLine ("Creating new test_msgs.Dummy");
-			test_msgs.Dummy test_msg = new test_msgs.Dummy ();
+			test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy ();
 			test_msg.thisiauint8 = 10;
 			test_msg.thisisabool = 1;
 			test_msg.thisisaint16 = 15;

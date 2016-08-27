@@ -11,8 +11,6 @@ endif()
 
 
 find_package(ament_cmake REQUIRED)
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Network REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rmw REQUIRED)
