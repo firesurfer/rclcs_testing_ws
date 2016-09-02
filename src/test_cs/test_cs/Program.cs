@@ -15,7 +15,7 @@ namespace test_cs
 			Console.WriteLine ("Creating test subscription");
 			Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic");
 			test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
-				/*Console.WriteLine("Recieved message on test topic: ");
+				Console.WriteLine("Recieved message on test topic: ");
 				foreach (var item in e.Message.GetType().GetFields()) {
 					Console.Write(item.Name + "      :"+item.GetValue(e.Message));
 					Console.WriteLine();
@@ -31,7 +31,9 @@ namespace test_cs
 				foreach (var arritem in e.Message.thisisfloat64array.Array) {
 					Console.Write(arritem + " ,");
 				}
-				Console.WriteLine();*/
+				Console.WriteLine();
+
+				Console.WriteLine("Seconds: " + e.Message.thisisatime.sec);
 
 			};
 			Console.WriteLine ("Creating executor");
@@ -51,7 +53,7 @@ namespace test_cs
 
 			test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100,102,200 });
 			test_msg.thisisfloat64array = new rosidl_generator_c__primitive_array_float64(new double[]{10.4,100.1,100.10});
-
+			test_msg.thisisatime.sec = 10;
 			Console.WriteLine ();
 
 			Console.WriteLine ("Publishing message");

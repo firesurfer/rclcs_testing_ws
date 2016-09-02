@@ -36,8 +36,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="rclcs">
-      <HintPath>..\..\..\install\lib\rclcs.dll</HintPath>
+      <HintPath>..\..\..\..\ros2_ws\install\lib\rclcs.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="builtin_interfaces">
+      <HintPath>..\..\..\..\ros2_ws\install\lib\builtin_interfaces.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

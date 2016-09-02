@@ -48,7 +48,7 @@ float64[] thisisfloat64array
 
 string[] thisisastringarray
 
-#builtin_interfaces/Time thisisatime
+builtin_interfaces/Time thisisatime
 
 #builtin_interfaces/Time[] thisisatimearray
 
