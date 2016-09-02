@@ -16,6 +16,6 @@ Then do
 ```
 source install/local_setup.bash
 cd install/bin
-export MONO_PATH=../lib
+export MONO_PATH=<ros2 workspace path>/install/lib
 mono test_cs.exe
 ```
