@@ -1,5 +1,5 @@
 ﻿using System;
-using ROS2Sharp;
+using rclcs;
 namespace test_cs
 {
 	class MainClass
@@ -15,16 +15,24 @@ namespace test_cs
 			Console.WriteLine ("Creating test subscription");
 			Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic");
 			test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
-				Console.WriteLine("Recieved message on test topic: " + e.Message.thisiauint8);
+				/*Console.WriteLine("Recieved message on test topic: ");
 				foreach (var item in e.Message.GetType().GetFields()) {
-					Console.WriteLine(item.Name + " " + item.GetValue(e.Message));
+					Console.Write(item.Name + "      :"+item.GetValue(e.Message));
+					Console.WriteLine();
+
 				}
-				Console.WriteLine("String size,capacity: " + e.Message.thisisastring.Size + ", " + e.Message.thisisastring.Capacity);
-				Console.WriteLine("String: " + e.Message.thisisastring.Data);
-				Console.WriteLine("String 2: " + e.Message.thisisanotherstring.Data);
-				//Console.WriteLine("Float32 Array size,capacity,pointer: " + e.Message.thisafloat32array.ArraySize+ ", " + e.Message.thisafloat32array.ArrayCapacity + ", " + e.Message.thisafloat32array.Data);
-				Console.WriteLine("Int8 Array size,capacity,pointer: " + e.Message.thisisaint8array.ArraySize+ ", " + e.Message.thisisaint8array.ArrayCapacity + ", " + e.Message.thisisaint8array.Data);
-				// + " " + e.Message.thisafloat32array.Array[0]);
+				Console.Write("Float32 Array: ");
+				foreach (var arritem in e.Message.thisafloat32array.Array) {
+					Console.Write(arritem + " ,");
+				}
+				Console.WriteLine();
+
+				Console.Write("Double Array: ");
+				foreach (var arritem in e.Message.thisisfloat64array.Array) {
+					Console.Write(arritem + " ,");
+				}
+				Console.WriteLine();*/
+
 			};
 			Console.WriteLine ("Creating executor");
 			Executor executor = new SingleThreadedExecutor ();
@@ -39,25 +47,39 @@ namespace test_cs
 			test_msg.thisisfloat64 = 10.0f;
 			test_msg.thisisastring = new rosidl_generator_c__String ("test_test_test");
 			test_msg.thisisanotherstring = new rosidl_generator_c__String ("test2");
-			//test_msg.thisafloat32array = new rosidl_generator_c__primitive_array_float32 (new float[]{ 10.0f, 1.1f });
+		    test_msg.thisafloat32array = new rosidl_generator_c__primitive_array_float32 (new float[]{ 10.0f, 1.1f });
 
-			test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100 });
-			Console.WriteLine ("Int8 Array ptr: " + test_msg.thisisaint8array.Data);
-			/*Console.WriteLine("Float32 Array size,capacity,pointer: " + test_msg.thisafloat32array.ArraySize+ ", " + test_msg.thisafloat32array.ArrayCapacity + ", " + test_msg.thisafloat32array.Data);
-			Console.Write("Float32 Array content: ");
-			foreach (var item in test_msg.thisafloat32array.Array) {
-				Console.Write (item +"; ");
-			}*/
+			test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100,102,200 });
+			test_msg.thisisfloat64array = new rosidl_generator_c__primitive_array_float64(new double[]{10.4,100.1,100.10});
+
 			Console.WriteLine ();
-			//Console.WriteLine (test_msg.thisisastring.Data );
 
 			Console.WriteLine ("Publishing message");
 			if (test_pub.Publish (test_msg)) {
 				Console.WriteLine ("Publish was successfull");
 			}
+
+			test_msg.Free ();
+
+			Console.WriteLine ("####################################################");
+			Console.WriteLine ("Creating service");
+			Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_service = test_node.CreateService<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
+			test_service.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request> e) => 
+			{
+				Console.WriteLine("Recieved new request");
+				test_service.SendResponse(new test_msgs.srv.DummySrv_Response());
+			};
+			Client<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_client = test_node.CreateClient<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
+			test_client.RecievedResponse += (object sender, ClientRecievedResponseEventArgs<test_msgs.srv.DummySrv_Response> e) => 
+			{
+				Console.WriteLine("Client recived response");
+			};
+			test_client.SendRequest (new test_msgs.srv.DummySrv_Request ());
 			Console.WriteLine ("Press any key to exit");
 			Console.ReadKey ();
 			executor.Cancel ();
+
+
 
 			RCL.rcl_shutdown ();
 

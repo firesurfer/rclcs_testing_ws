@@ -24,29 +24,29 @@ string thisisastring
 
 string thisisanotherstring
 
-#bool[] thisisaboolarray
+bool[] thisisaboolarray
 
 int8[] thisisaint8array
 
-#uint8[] thisiauint8array
+uint8[] thisiauint8array
 
-#int16[] thisisaint16array
+int16[] thisisaint16array
 
-#uint16[] thisisauint16array
+uint16[] thisisauint16array
 
-#int32[] thisisaint32array
+int32[] thisisaint32array
 
-#uint32[] thisisauint32array
+uint32[] thisisauint32array
 
-#int64[] thisisaint64array
+int64[] thisisaint64array
 
-#uint64[] thisisauint64array
+uint64[] thisisauint64array
 
-#float32[] thisafloat32array
+float32[] thisafloat32array
 
-#float64[] thisisfloat64array
+float64[] thisisfloat64array
 
-#string[] thisisastringarray
+string[] thisisastringarray
 
 #builtin_interfaces/Time thisisatime
 
