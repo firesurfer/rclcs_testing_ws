@@ -21,5 +21,3 @@ cd install/bin
 export MONO_PATH=../lib:<Path to ros2 workspace/install/lib>
 mono test_cs.exe
 ```
-
-
