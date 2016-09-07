@@ -3,7 +3,6 @@ using rclcs;
 namespace test_cs
 {
 	/**
-	 * 
 	 * This example shows how to create a subscription
 	 */
 	public class SubscriptionExample

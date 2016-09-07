@@ -39,7 +39,8 @@ namespace test_cs
 
 						//And now publish the message
 						testPublisher.Publish (testMsg);
-
+						//Free unmanaged memory
+						testMsg.Free ();
 					}
 
 				}

@@ -16,20 +16,25 @@ namespace test_cs
 			using (RCL rcl = new RCL ()) {
 				//Initialise RCL with default allocator
 				rcl.Init (args);
-
+				Console.WriteLine ("RCL Init was successfull");
 				//Create an executor that will task our node
-				Executor demoExecutor = new SingleThreadedExecutor();
-				//Let the executor task all nodes with the given timespan
-				demoExecutor.Spin (new TimeSpan (0, 0, 0, 0, 10));
-				//Create a Node
-				using (Node testNode = new Node ("BasicNodeExample")) {
-					//Add node to executor
-					demoExecutor.AddNode(testNode);
+				using (Executor demoExecutor = new SingleThreadedExecutor ()) {
+					//Let the executor task all nodes with the given timespan
+					demoExecutor.Spin (new TimeSpan (0, 0, 0, 0, 10));
+					//Create a Node
+					using (Node testNode = new Node ("BasicNodeExample")) {
+						Console.WriteLine ("Creation of node was successfull");
+						//Add node to executor
+						demoExecutor.AddNode (testNode);
 
-					//Now do some fancy stuff
+						//Now do some fancy stuff
+
+						//Keeps app from closing instantly
+						Console.ReadKey ();
+					}
+					Console.WriteLine ("Disposed node");
 				}
-				//Remember to stop the executor - you could start it again afterwards
-				demoExecutor.Cancel ();
+
 
 			}
 			//rcl_shutdown gets called automatically
@@ -69,5 +74,6 @@ namespace test_cs
 		}
 
 	}
+
 }
 
