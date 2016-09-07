@@ -35,12 +35,12 @@ namespace test_cs
 						//Fill a string //TODO -> Make strings better usable
 						testMsg.thisisastring = new rosidl_generator_c__String ("TestString");
 						//Fill an array
-						testMsg.thisafloat32array = new rosidl_generator_c__primitive_array_float32 (new float[]{ 1.3f, 100000.4f });
+						testMsg.thisafloat32array =  (new float[]{ 1.3f, 100000.4f });
 
 						//And now publish the message
 						testPublisher.Publish (testMsg);
 						//Free unmanaged memory
-						testMsg.Free ();
+
 					}
 
 				}

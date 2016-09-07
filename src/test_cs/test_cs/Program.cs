@@ -16,28 +16,35 @@ namespace test_cs
 				Console.WriteLine ("Creating node");
 				using (Node test_node = new Node ("test_node")) {
 					Console.WriteLine ("Creating test publisher");
-					using (Publisher<test_msgs.msg.Dummy_t> test_pub = new Publisher<test_msgs.msg.Dummy_t> (test_node, "TestTopic")) {
+					using (Publisher<test_msgs.msg.Dummy> test_pub = new Publisher<test_msgs.msg.Dummy> (test_node, "TestTopic")) {
 						Console.WriteLine ("Creating test subscription");
-						Subscription<test_msgs.msg.Dummy_t> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy_t> ("TestTopic");
-						test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy_t> e) => {
+						Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic");
+						test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
 							
 							Console.WriteLine ("Recieved message on test topic: ");
-							foreach (var item in e.Message.GetType().GetFields()) {
+							foreach (var item in e.Message.GetType().GetProperties()) {
 								Console.Write (item.Name + "      :" + item.GetValue (e.Message));
 								Console.WriteLine ();
 
 							}
 							Console.Write ("Float32 Array: ");
-							foreach (var arritem in e.Message.thisafloat32array.Array) {
+							foreach (var arritem in e.Message.thisafloat32array) {
 								Console.Write (arritem + " ,");
 							}
 							Console.WriteLine ();
 
 							Console.Write ("Double Array: ");
-							foreach (var arritem in e.Message.thisisfloat64array.Array) {
+							foreach (var arritem in e.Message.thisisfloat64array) {
 								Console.Write (arritem + " ,");
 							}
 							Console.WriteLine ();
+
+							Console.Write ("int8 Array: ");
+							foreach (var arritem in e.Message.thisisaint8array.Array) {
+								Console.Write (arritem + " ,");
+							}
+							Console.WriteLine ();
+
 
 							Console.WriteLine ("Seconds: " + e.Message.thisisatime.sec);
 
@@ -51,17 +58,17 @@ namespace test_cs
 						using(test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy())
 						{
 						//test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy ();
-						test_msg.Data.thisiauint8 = 10;
-						test_msg.Data.thisisabool = 1;
-						test_msg.Data.thisisaint16 = 15;
-						test_msg.Data.thisisfloat64 = 10.0f;
-						test_msg.Data.thisisastring = new rosidl_generator_c__String ("test_test_test");
-						test_msg.Data.thisisanotherstring = new rosidl_generator_c__String ("test2");
-						test_msg.Data.thisafloat32array = new rosidl_generator_c__primitive_array_float32 (new float[]{ 10.0f, 1.1f });
+						test_msg.thisiauint8 = 10;
+						test_msg.thisisabool = 1;
+						test_msg.thisisaint16 = 15;
+						test_msg.thisisfloat64 = 10.0f;
+						test_msg.thisisastring = new rosidl_generator_c__String ("test_test_test");
+						test_msg.thisisanotherstring = new rosidl_generator_c__String ("test2");
+						test_msg.thisafloat32array = new float[]{ 10.0f, 1.1f };
 
-						test_msg.Data.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100, 102, 200 });
-						test_msg.Data.thisisfloat64array = new rosidl_generator_c__primitive_array_float64 (new double[]{ 10.4, 100.1, 100.10 });
-						test_msg.Data.thisisatime.sec = 10;
+						test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100, 102, 200 });
+						test_msg.thisisfloat64array =  new double[]{ 10.4, 100.1, 100.10 };
+						//test_msg.thisisatime.sec = 10;
 						Console.WriteLine ();
 
 						Console.WriteLine ("Publishing message");
