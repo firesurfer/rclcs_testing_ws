@@ -29,17 +29,19 @@ namespace test_cs
 					//TODO show alternative to Node.CreatePublisher<T>
 					using (Publisher<test_msgs.msg.Dummy> testPublisher = testNode.CreatePublisher<test_msgs.msg.Dummy> ("TestTopic")) {
 						//Create a message //TODO let message implement IDisposable
-						test_msgs.msg.Dummy testMsg = new test_msgs.msg.Dummy (); 
-						//Fill the message fields
-						testMsg.thisafloat32 = 0.4f;
-						//Fill a string //TODO -> Make strings better usable
-						testMsg.thisisastring = new rosidl_generator_c__String ("TestString");
-						//Fill an array
-						testMsg.thisafloat32array =  (new float[]{ 1.3f, 100000.4f });
-
-						//And now publish the message
-						testPublisher.Publish (testMsg);
-						//Free unmanaged memory
+						using (test_msgs.msg.Dummy testMsg = new test_msgs.msg.Dummy ()) {
+							//Fill the message fields
+							testMsg.thisafloat32 = 0.4f;
+							//Fill a string 
+							testMsg.thisisastring = "TestString";
+							//Fill an array
+							testMsg.thisafloat32array = (new float[]{ 1.3f, 100000.4f });
+							//Use a nested type
+							testMsg.thisisatime.sec = 100;
+							//And now publish the message
+							testPublisher.Publish (testMsg);
+							//Free unmanaged memory
+						}
 
 					}
 

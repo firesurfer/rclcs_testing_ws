@@ -51,6 +51,7 @@
     <Compile Include="Examples\PublisherExample.cs" />
     <Compile Include="Examples\SubscriptionExample.cs" />
     <Compile Include="Examples\RCLExample.cs" />
+    <Compile Include="Examples\ServiceExample.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

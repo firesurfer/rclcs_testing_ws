@@ -1,5 +1,6 @@
 ﻿using System;
 using rclcs;
+
 namespace test_cs
 {
 	class MainClass
@@ -8,8 +9,7 @@ namespace test_cs
 		{
 			Console.WriteLine ("Init RCL");
 
-			using (RCL rcl = new RCL ()) 
-			{
+			using (RCL rcl = new RCL ()) {
 				rcl.Init (args);
 			
 
@@ -40,7 +40,7 @@ namespace test_cs
 							Console.WriteLine ();
 
 							Console.Write ("int8 Array: ");
-							foreach (var arritem in e.Message.thisisaint8array.Array) {
+							foreach (var arritem in e.Message.thisisaint8array) {
 								Console.Write (arritem + " ,");
 							}
 							Console.WriteLine ();
@@ -55,31 +55,31 @@ namespace test_cs
 						Console.WriteLine ("Spinning");
 						executor.Spin (new TimeSpan (0, 0, 0, 0, 10));
 						Console.WriteLine ("Creating new test_msgs.Dummy");
-						using(test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy())
-						{
-						//test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy ();
-						test_msg.thisiauint8 = 10;
-						test_msg.thisisabool = 1;
-						test_msg.thisisaint16 = 15;
-						test_msg.thisisfloat64 = 10.0f;
-						test_msg.thisisastring = new rosidl_generator_c__String ("test_test_test");
-						test_msg.thisisanotherstring = new rosidl_generator_c__String ("test2");
-						test_msg.thisafloat32array = new float[]{ 10.0f, 1.1f };
+						using (test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy ()) {
+							
+							test_msg.thisiauint8 = 10;
+							test_msg.thisisabool = 1;
+							test_msg.thisisaint16 = 15;
+							test_msg.thisisfloat64 = 10.0f;
+							test_msg.thisisastring = "test_test_test";
+							test_msg.thisisanotherstring = "test2";
+							test_msg.thisafloat32array = new float[]{ 10.0f, 1.1f };
 
-						test_msg.thisisaint8array = new rosidl_generator_c__primitive_array_int8 (new byte[]{ 100, 102, 200 });
-						test_msg.thisisfloat64array =  new double[]{ 10.4, 100.1, 100.10 };
-						//test_msg.thisisatime.sec = 10;
-						Console.WriteLine ();
+							test_msg.thisisaint8array = (new byte[]{ 100, 102, 200 });
+							test_msg.thisisfloat64array = new double[]{ 10.4, 100.1, 100.10 };
+							test_msg.thisisatime.sec = 10;
 
-						Console.WriteLine ("Publishing message");
-						if (test_pub.Publish (test_msg)) {
-							Console.WriteLine ("Publish was successfull");
-						}
+							Console.WriteLine ("Test seconds: "+ test_msg.thisisatime.sec);
+							Console.WriteLine ("Test_2 seconds: " + test_msg.Data.thisisatime.sec);
+							Console.WriteLine ("Publishing message");
+							if (test_pub.Publish (test_msg)) {
+								Console.WriteLine ("Publish was successfull");
+							}
 
 						
 						}
 						Console.WriteLine ("####################################################");
-						/*Console.WriteLine ("Creating service");
+						Console.WriteLine ("Creating service");
 						Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_service = test_node.CreateService<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
 						test_service.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request> e) => {
 							Console.WriteLine ("Recieved new request");
@@ -89,7 +89,7 @@ namespace test_cs
 						test_client.RecievedResponse += (object sender, ClientRecievedResponseEventArgs<test_msgs.srv.DummySrv_Response> e) => {
 							Console.WriteLine ("Client recived response");
 						};
-						test_client.SendRequest (new test_msgs.srv.DummySrv_Request ());*/
+						test_client.SendRequest (new test_msgs.srv.DummySrv_Request ());
 						Console.WriteLine ("Press any key to exit");
 						Console.ReadKey ();
 						executor.Cancel ();
