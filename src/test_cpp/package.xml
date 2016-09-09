@@ -2,7 +2,7 @@
 <package format="2">
   <name>test_cpp</name>
   <version>0.0.0</version>
-  <description>Simulates some hardware</description>
+  <description>test subscriber in cpp</description>
   <maintainer email="lennart.nachtigall@student.kit.edu">Lennart Nachtigall</maintainer>
   <license>?</license>
 
