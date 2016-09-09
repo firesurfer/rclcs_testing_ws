@@ -16,9 +16,9 @@ namespace test_cs
 				Console.WriteLine ("Creating node");
 				using (Node test_node = new Node ("test_node")) {
 					Console.WriteLine ("Creating test publisher");
-					using (Publisher<test_msgs.msg.Dummy> test_pub = new Publisher<test_msgs.msg.Dummy> (test_node, "TestTopic")) {
+					using (Publisher<test_msgs.msg.Dummy> test_pub = new Publisher<test_msgs.msg.Dummy> (test_node, "TestTopic", rmw_qos_profile_t.rmw_qos_profile_sensor_data)) {
 						Console.WriteLine ("Creating test subscription");
-						Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic");
+						Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic",rmw_qos_profile_t.rmw_qos_profile_sensor_data);
 						test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
 							
 							Console.WriteLine ("Recieved message on test topic: ");
@@ -78,18 +78,28 @@ namespace test_cs
 
 						
 						}
+
 						Console.WriteLine ("####################################################");
 						Console.WriteLine ("Creating service");
 						Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_service = test_node.CreateService<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
-						test_service.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request> e) => {
+						test_service.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> e) => {
 							Console.WriteLine ("Recieved new request");
-							test_service.SendResponse (new test_msgs.srv.DummySrv_Response ());
+							using(test_msgs.srv.DummySrv_Response response = new test_msgs.srv.DummySrv_Response())
+							{
+								response.sum = e.Request.a + e.Request.b;
+								e.SendResponseFunc(response);
+							}
+
 						};
 						Client<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_client = test_node.CreateClient<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
 						test_client.RecievedResponse += (object sender, ClientRecievedResponseEventArgs<test_msgs.srv.DummySrv_Response> e) => {
-							Console.WriteLine ("Client recived response");
+							Console.WriteLine ("Client recived response : sum:  " + e.Response.sum);
 						};
-						test_client.SendRequest (new test_msgs.srv.DummySrv_Request ());
+						using (test_msgs.srv.DummySrv_Request testRequest = new test_msgs.srv.DummySrv_Request ()) {
+							testRequest.a = 10;
+							testRequest.b = 100;
+							test_client.SendRequest (testRequest);
+						}
 						Console.WriteLine ("Press any key to exit");
 						Console.ReadKey ();
 						executor.Cancel ();

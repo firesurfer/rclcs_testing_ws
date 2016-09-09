@@ -28,7 +28,7 @@ namespace test_cs
 					//Now we're creating a publisher with the Dummy message
 					//TODO show alternative to Node.CreatePublisher<T>
 					using (Publisher<test_msgs.msg.Dummy> testPublisher = testNode.CreatePublisher<test_msgs.msg.Dummy> ("TestTopic")) {
-						//Create a message //TODO let message implement IDisposable
+						//Create a message 
 						using (test_msgs.msg.Dummy testMsg = new test_msgs.msg.Dummy ()) {
 							//Fill the message fields
 							testMsg.thisafloat32 = 0.4f;

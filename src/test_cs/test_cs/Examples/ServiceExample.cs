@@ -23,9 +23,13 @@ namespace test_cs
 						demoExecutor.AddNode (testNode);
 
 						using (Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> DummyService = new Service<test_msgs.srv.DummySrv_Request, test_msgs.srv.DummySrv_Response> (testNode, "TestService")) {
-							DummyService.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request> e) => 
+							DummyService.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request, test_msgs.srv.DummySrv_Response> e) => 
 							{
 								Console.WriteLine("Test service recieved request");
+								using(test_msgs.srv.DummySrv_Response response = new test_msgs.srv.DummySrv_Response())
+								{
+									e.SendResponseFunc( response);
+								}
 							};
 						}
 
