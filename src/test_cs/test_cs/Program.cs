@@ -45,7 +45,11 @@ namespace test_cs
 							}
 							Console.WriteLine ();
 
-
+							Console.Write("string Array: ");
+							foreach (var arritem in e.Message.thisisastringarray) {
+								Console.WriteLine(arritem + " ,");
+							}
+							Console.WriteLine();
 							Console.WriteLine ("Seconds: " + e.Message.thisisatime.sec);
 
 						};
@@ -65,6 +69,11 @@ namespace test_cs
 							test_msg.thisisanotherstring = "test2";
 							test_msg.thisafloat32array = new float[]{ 10.0f, 1.1f };
 
+							test_msg.thisisastringarray =  (new string[] {
+								"test1",
+								"test2",
+								"test3"
+							});
 							test_msg.thisisaint8array = (new byte[]{ 100, 102, 200 });
 							test_msg.thisisfloat64array = new double[]{ 10.4, 100.1, 100.10 };
 							test_msg.thisisatime.sec = 10;
