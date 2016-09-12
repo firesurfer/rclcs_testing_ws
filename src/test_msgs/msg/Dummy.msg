@@ -48,6 +48,8 @@ float64[] thisisfloat64array
 
 string[] thisisastringarray
 
+int16[4] thisisafixedint16array
+
 builtin_interfaces/Time thisisatime
 
 #builtin_interfaces/Time[] thisisatimearray
