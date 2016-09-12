@@ -50,6 +50,11 @@ namespace test_cs
 								Console.WriteLine(arritem + " ,");
 							}
 							Console.WriteLine();
+							Console.Write("fixed Array: ");
+							foreach (var arritem in e.Message.thisisafixedint16array) {
+								Console.WriteLine(arritem + " ,");
+							}
+							Console.WriteLine();
 							Console.WriteLine ("Seconds: " + e.Message.thisisatime.sec);
 
 						};
@@ -68,7 +73,7 @@ namespace test_cs
 							test_msg.thisisastring = "test_test_test";
 							test_msg.thisisanotherstring = "test2";
 							test_msg.thisafloat32array = new float[]{ 10.0f, 1.1f };
-
+							test_msg.thisisafixedint16array = new short[]{ 10, 100, 5 };
 							test_msg.thisisastringarray =  (new string[] {
 								"test1",
 								"test2",
