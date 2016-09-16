@@ -16,7 +16,7 @@ add_custom_target(test_cs_dll ALL
 else()
 add_custom_target(test_cs_dll ALL
 	COMMAND 
-	xbuild test_cs.csproj /property:OutputPath="${CMAKE_BINARY_DIR}"
+	msbuild test_cs.csproj /property:OutputPath="${CMAKE_BINARY_DIR}"
 	WORKING_DIRECTORY
 	${CMAKE_SOURCE_DIR}/test_cs
 )
