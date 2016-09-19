@@ -1,24 +1,56 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Runtime.InteropServices;
 namespace test_cs
 {
 	/// <summary>
 	/// Windows assembly finder.
 	/// This class is needed to find the rclcs.dll assembly at program start
 	/// </summary>
-	public static class WindowsAssemblyFinder
+	public static class WindowsAssemblyLoader
 	{
+		//See: https://stackoverflow.com/questions/6089083/currentdomain-assemblyresolve-does-not-fire-when-assembly-is-used-as-a-subclass
+		public static void Main(string[] args)
+		{
+			RegisterAssemlyLoadEvent();
+			StartMain(args);
+		}
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		private static void StartMain(string[] args)
+		{
+			test_cs.BasicNodeExampleWithUsing.Main(args);
+		}
 		/// <summary>
 		/// Registers the assemly load event.
 		/// </summary>
 		public static void RegisterAssemlyLoadEvent()
 		{
+
 			if (!RunningOnWindows())
 				return;
+
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.AssemblyLoad += new AssemblyLoadEventHandler (OnAssemblyLoad);
+			currentDomain.AssemblyResolve += OnAssemblyResolve;
+
+			string ament_prefix_path_raw = Environment.GetEnvironmentVariable("AMENT_PREFIX_PATH");
+			string[] ament_prefix_paths = ament_prefix_path_raw.Split(new char[] { ';' });
+			for (int i = 0; i < ament_prefix_paths.Length; i++)
+			{
+				ament_prefix_paths[i] = Path.Combine(ament_prefix_paths[i], "lib");
+			}            
+			//See https://stackoverflow.com/questions/2864673/specify-the-search-path-for-dllimport-in-net
+			var path = new[] { Environment.GetEnvironmentVariable("PATH") ?? string.Empty };
+			string newPath = string.Join(Path.PathSeparator.ToString(), path.Concat(ament_prefix_paths));
+			Environment.SetEnvironmentVariable("PATH", newPath);
+			Console.WriteLine(newPath);
 		}
+
+
+
 		private static void OnAssemblyLoad(object sender, AssemblyLoadEventArgs args)
 		{
 
@@ -29,16 +61,20 @@ namespace test_cs
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+		public static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
 		{
+			Console.WriteLine("AssemblyReloveEvent");
 			string ament_prefix_path_raw = Environment.GetEnvironmentVariable ("AMENT_PREFIX_PATH");
 			string[] ament_prefix_paths = ament_prefix_path_raw.Split (new char[]{';'});
 
 			foreach (var item in ament_prefix_paths) {
 				string searchPath = Path.Combine (item, "lib");
+
 				if (Directory.Exists (searchPath)) {
 					foreach (var file in Directory.GetFiles(searchPath)) {
-						if (Path.GetFileName (file) == args.Name) {
+						string pureName = args.Name.Split(new char[] { ',' })[0];
+						Console.WriteLine(Path.GetFileName(file) + "    :    " + pureName);
+						if (Path.GetFileName (file) == pureName + ".dll") {
 							return Assembly.LoadFrom (file);
 						}
 					}
@@ -58,6 +94,9 @@ namespace test_cs
 			}
 			return !isMono;
 		}
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+		static extern bool SetDllDirectory(string lpPathName);
 	}
 }
 

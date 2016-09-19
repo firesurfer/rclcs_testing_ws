@@ -11,10 +11,7 @@ namespace test_cs
 	{
 		public static void Main (string[] args)
 		{
-			//This is needed in order to find the rclcs.dll and test_msgs.dll on windows
-			if (WindowsAssemblyFinder.RunningOnWindows ()) {
-				WindowsAssemblyFinder.RegisterAssemlyLoadEvent ();
-			}
+			
 			//Create instance of RCL class which handles functions from rcl.h
 			//RCL implements IDisposable so the using statement makes sure rcl_shutdown will be called after usages
 			using (RCL rcl = new RCL ()) {
@@ -53,10 +50,7 @@ namespace test_cs
 	{
 		public static void Main (string[] args)
 		{
-			//This is needed in order to find the rclcs.dll and test_msgs.dll on windows
-			if (WindowsAssemblyFinder.RunningOnWindows ()) {
-				WindowsAssemblyFinder.RegisterAssemlyLoadEvent ();
-			}
+			
 			//Create instance of RCL class which handles functions from rcl.h
 			RCL rcl = new RCL();
 			//Initialise RCL with default allocator

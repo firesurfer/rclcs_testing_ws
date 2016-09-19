@@ -9,6 +9,7 @@ namespace test_cs
 	{
 		public static void Main (string[] args)
 		{
+			
 			//Create instance of RCL class which handles functions from rcl.h
 			//RCL implements IDisposable so the using statement makes sure rcl_shutdown will be called after usages
 			using (RCL rcl = new RCL ()) {
