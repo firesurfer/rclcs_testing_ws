@@ -40,7 +40,7 @@ namespace test_cs
 			string[] ament_prefix_paths = ament_prefix_path_raw.Split(new char[] { ';' });
 			for (int i = 0; i < ament_prefix_paths.Length; i++)
 			{
-				ament_prefix_paths[i] = Path.Combine(ament_prefix_paths[i], "lib");
+				ament_prefix_paths[i] = Path.Combine(ament_prefix_paths[i], "bin");
 			}            
 			//See https://stackoverflow.com/questions/2864673/specify-the-search-path-for-dllimport-in-net
 			var path = new[] { Environment.GetEnvironmentVariable("PATH") ?? string.Empty };
@@ -73,8 +73,9 @@ namespace test_cs
 				if (Directory.Exists (searchPath)) {
 					foreach (var file in Directory.GetFiles(searchPath)) {
 						string pureName = args.Name.Split(new char[] { ',' })[0];
-						Console.WriteLine(Path.GetFileName(file) + "    :    " + pureName);
+
 						if (Path.GetFileName (file) == pureName + ".dll") {
+							Console.WriteLine("Found: " + pureName + " at: " + file);
 							return Assembly.LoadFrom (file);
 						}
 					}
