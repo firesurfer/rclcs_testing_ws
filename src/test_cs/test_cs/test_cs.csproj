@@ -2,13 +2,13 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{BE345198-CB3E-4707-8B76-C88F19B038B1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>test_cs</RootNamespace>
     <AssemblyName>test_cs</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <StartupObject>test_cs.BasicNodeExampleWithUsing</StartupObject>
+    <StartupObject>test_cs.WindowsAssemblyLoader</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
