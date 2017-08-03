@@ -5,24 +5,27 @@ project(test_cs)
 
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 
-if(NOT WIN32)
-add_custom_target(test_cs_dll ALL
-	COMMAND 
-	xbuild test_cs.csproj /property:OutputPath="${CMAKE_BINARY_DIR}"
-	WORKING_DIRECTORY
-	${CMAKE_SOURCE_DIR}/test_cs
-)
-else()
-add_custom_target(test_cs_dll ALL
-	COMMAND 
-	msbuild test_cs.csproj /property:OutputPath="${CMAKE_BINARY_DIR}"
-	WORKING_DIRECTORY
-	${CMAKE_SOURCE_DIR}/test_cs
-)
-endif()
+find_package(dotnet_cmake_module REQUIRED)
+find_package(DotNETExtra MODULE)
 
-install(FILES ${CMAKE_BINARY_DIR}/test_cs.exe 
-	DESTINATION bin)
+file(GLOB_RECURSE CS_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cs)
+ 
+
+add_assemblies(test_cs
+    ${CS_SOURCES}
+    OUTPUT_NAME
+    "test_cs"
+    OUTPUT_TYPE 
+    "Exe"
+    COMPILER_ARGS
+    "-main:test_cs.MainClass"
+    REFERENCE_ASSEMBLIES
+    "System,System.Xml,System.Xml.Linq,rclcs,test_msgs,builtin_interfaces"
+)
+
+install_assemblies(test_cs COPY_DEPENDENCIES DESTINATION bin)
+#install(FILES ${CMAKE_BINARY_DIR}/test_cs.exe 	DESTINATION bin)
 
 ament_package()
