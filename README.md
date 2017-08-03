@@ -18,7 +18,7 @@ Then do
 ```
 source install/local_setup.bash
 cd install/bin
-export MONO_PATH=../lib:<Path to ros2 workspace/install/lib>
+export MONO_PATH=../lib:${AMENT_PREFIX_PATH}/lib>
 mono test_cs.exe
 ```
 
@@ -30,3 +30,5 @@ There are three examples at the moment.
 * BasicNodeExample - demonstrates how to initialize the rcl and how to create/spin a node
 * PublisherExample - create a publisher an publish the dummy message
 * SubscriptionExample - subscribe on a TestTopic an recieve the Dummy message
+
+By changing the line `"-main:test_cs.MainClass"` in the CMakeLists.txt you can also build the other examples.
