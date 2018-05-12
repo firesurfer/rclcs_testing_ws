@@ -16,10 +16,10 @@ namespace test_cs
 				Console.WriteLine ("Creating node");
 				using (Node test_node = new Node ("test_node")) {
 					Console.WriteLine ("Creating test publisher");
-					using (Publisher<test_msgs.msg.Dummy> test_pub = new Publisher<test_msgs.msg.Dummy> (test_node, "TestTopic", rmw_qos_profile_t.rmw_qos_profile_sensor_data)) {
+                    using (Publisher<cs_msgs.msg.Dummy> test_pub = new Publisher<cs_msgs.msg.Dummy> (test_node, "TestTopic", rmw_qos_profile_t.rmw_qos_profile_sensor_data)) {
 						Console.WriteLine ("Creating test subscription");
-						Subscription<test_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic",rmw_qos_profile_t.rmw_qos_profile_sensor_data);
-						test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => {
+                        Subscription<cs_msgs.msg.Dummy> test_subscription = test_node.CreateSubscription<cs_msgs.msg.Dummy> ("TestTopic",rmw_qos_profile_t.rmw_qos_profile_sensor_data);
+                        test_subscription.MessageRecieved += (object sender, MessageRecievedEventArgs<cs_msgs.msg.Dummy> e) => {
 							
 							Console.WriteLine ("Recieved message on test topic: ");
 							foreach (var item in e.Message.GetType().GetProperties()) {
@@ -64,7 +64,7 @@ namespace test_cs
 						Console.WriteLine ("Spinning");
 						executor.Spin (new TimeSpan (0, 0, 0, 0, 10));
 						Console.WriteLine ("Creating new test_msgs.Dummy");
-						using (test_msgs.msg.Dummy test_msg = new test_msgs.msg.Dummy ()) {
+                        using (cs_msgs.msg.Dummy test_msg = new cs_msgs.msg.Dummy ()) {
 							
 							test_msg.thisiauint8 = 10;
 							test_msg.thisisabool = 1;
@@ -93,7 +93,7 @@ namespace test_cs
 						
 						}
 
-						Console.WriteLine ("####################################################");
+						/*Console.WriteLine ("####################################################");
 						Console.WriteLine ("Creating service");
 						Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> test_service = test_node.CreateService<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> ("TestService");
 						test_service.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> e) => {
@@ -113,7 +113,7 @@ namespace test_cs
 							testRequest.a = 10;
 							testRequest.b = 100;
 							test_client.SendRequest (testRequest);
-						}
+						}*/
 						Console.WriteLine ("Press any key to exit");
 						Console.ReadKey ();
 						executor.Cancel ();

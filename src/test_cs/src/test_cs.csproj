@@ -39,7 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>anycpu</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -52,16 +52,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="test_msgs">
-      <HintPath>..\..\..\install\lib\test_msgs.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="rclcs">
       <HintPath>..\..\..\..\ros2_ws\install\lib\rclcs.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="builtin_interfaces">
       <HintPath>..\..\..\..\ros2_ws\install\lib\builtin_interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="cs_msgs">
+      <HintPath>..\..\..\install\lib\cs_msgs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

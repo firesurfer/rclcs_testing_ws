@@ -23,11 +23,11 @@ namespace test_cs
 						//Add node to executor
 						demoExecutor.AddNode (testNode);
 
-						using (Service<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> DummyService = new Service<test_msgs.srv.DummySrv_Request, test_msgs.srv.DummySrv_Response> (testNode, "TestService")) {
-							DummyService.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<test_msgs.srv.DummySrv_Request, test_msgs.srv.DummySrv_Response> e) => 
+                        using (Service<cs_msgs.srv.DummySrv_Request,cs_msgs.srv.DummySrv_Response> DummyService = new Service<cs_msgs.srv.DummySrv_Request, cs_msgs.srv.DummySrv_Response> (testNode, "TestService")) {
+                            DummyService.RequestRecieved += (object sender, ServiceRecievedRequestEventArgs<cs_msgs.srv.DummySrv_Request, cs_msgs.srv.DummySrv_Response> e) => 
 							{
 								Console.WriteLine("Test service recieved request");
-								using(test_msgs.srv.DummySrv_Response response = new test_msgs.srv.DummySrv_Response())
+                                using(cs_msgs.srv.DummySrv_Response response = new cs_msgs.srv.DummySrv_Response())
 								{
 									e.SendResponseFunc( response);
 								}
@@ -65,12 +65,12 @@ namespace test_cs
 						//Add node to executor
 						demoExecutor.AddNode (testNode);
 
-						using (Client<test_msgs.srv.DummySrv_Request,test_msgs.srv.DummySrv_Response> DummyClient = new Client<test_msgs.srv.DummySrv_Request, test_msgs.srv.DummySrv_Response> (testNode, "TestService")) {
-							DummyClient.RecievedResponse += (object sender, ClientRecievedResponseEventArgs<test_msgs.srv.DummySrv_Response> e) => 
+                        using (Client<cs_msgs.srv.DummySrv_Request,cs_msgs.srv.DummySrv_Response> DummyClient = new Client<cs_msgs.srv.DummySrv_Request, cs_msgs.srv.DummySrv_Response> (testNode, "TestService")) {
+                            DummyClient.RecievedResponse += (object sender, ClientRecievedResponseEventArgs<cs_msgs.srv.DummySrv_Response> e) => 
 							{
 								Console.WriteLine("Dummy client recieved response");
 							};
-							using (test_msgs.srv.DummySrv_Request testRequest = new test_msgs.srv.DummySrv_Request ()) {
+                            using (cs_msgs.srv.DummySrv_Request testRequest = new cs_msgs.srv.DummySrv_Request ()) {
 								testRequest.a = 10;
 								testRequest.b = 100;
 								DummyClient.SendRequest (testRequest);

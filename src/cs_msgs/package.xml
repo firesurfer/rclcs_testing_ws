@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<package format="2">
-  <name>test_msgs</name>
+<package format="3">
+  <name>cs_msgs</name>
   <version>0.0.0</version>
-  <description>Contains message and service definitions used by iboss.</description>
+  <description>Contains message and service definitions used for test_cs</description>
   <maintainer email="lennart.nachtigall@student.kit.edu">Lennart Nachtigall</maintainer>
   <license>?</license>
-
+ <member_of_group>rosidl_interface_packages</member_of_group>
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <buildtool_depend>rosidl_default_generators</buildtool_depend>

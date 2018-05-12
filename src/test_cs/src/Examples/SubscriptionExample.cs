@@ -26,9 +26,9 @@ namespace test_cs
 					demoExecutor.AddNode(testNode);
 
 					//Create subscription on TestTopic
-					using (Subscription<test_msgs.msg.Dummy> testSub = testNode.CreateSubscription<test_msgs.msg.Dummy> ("TestTopic")) {
+                    using (Subscription<cs_msgs.msg.Dummy> testSub = testNode.CreateSubscription<cs_msgs.msg.Dummy> ("TestTopic")) {
 						//Register on MessageRecieved event
-						testSub.MessageRecieved += (object sender, MessageRecievedEventArgs<test_msgs.msg.Dummy> e) => 
+                        testSub.MessageRecieved += (object sender, MessageRecievedEventArgs<cs_msgs.msg.Dummy> e) => 
 						{
 							//Simply print all message items
 							foreach (var item in e.Message.GetType().GetFields()) {
