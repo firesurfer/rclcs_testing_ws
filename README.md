@@ -32,3 +32,16 @@ There are three examples at the moment.
 * SubscriptionExample - subscribe on a TestTopic an recieve the Dummy message
 
 By changing the line `"-main:test_cs.MainClass"` in the CMakeLists.txt you can also build the other examples.
+
+## Windows
+
+On Windows you can't use the MONO_PATH variable. 
+Therefore you have to set the WindowsAssemblyLoader as entry point.
+
+simply select in the StartMain method the example you want to start:
+```
+        private static void StartMain(string[] args)
+		{
+			test_cs.BasicNodeExampleWithUsing.Main(args);
+		}
+```
